@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true">
+    <View
+        android:id="@+id/graphTick"
+        android:layout_width="1dp"
+        android:layout_height="5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="22dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:background="@drawable/draw_graphtick" />
+    <View
+        android:id="@+id/graphbar"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
+        android:layout_above="@+id/graphTick"
+        android:background="@drawable/draw_graphbar" />
+
+    <ImageView
+        android:id="@+id/todayMarker"
+        android:layout_below="@+id/graphbar"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:src="@drawable/today_marker"/>
+
+    <TextView
+        android:id="@+id/graphXLabel"
+        android:layout_width="34dp"
+        android:layout_height="11dp"
+        android:layout_below="@+id/graphbar"
+        android:layout_marginTop="11dp"
+        android:textColor="@color/ShadeText"
+        android:fontFamily="Roboto"
+        android:textAlignment="center"
+        android:textSize="8sp"
+        android:text=""/>
+</RelativeLayout>
