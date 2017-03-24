@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="LupusPurple">#A07DE6</color>
+    <color name="ShadeGrey">#C7C7CC</color>
+    <color name="PureWhite">#FFFFFF</color>
+    <color name="ShadeText">#4A4A4A</color>
+    <color name="ShadeRed">#FB6463</color>
+</resources>
