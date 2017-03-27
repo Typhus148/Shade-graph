@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_alignParentBottom="true">
+
     <View
         android:id="@+id/graphTick"
         android:layout_width="1dp"
@@ -15,6 +16,7 @@
         android:layout_gravity="center"
         android:layout_centerInParent="true"
         android:background="@drawable/draw_graphtick" />
+
     <View
         android:id="@+id/graphbar"
         android:layout_width="5dp"
@@ -49,4 +51,14 @@
         android:textAlignment="center"
         android:textSize="8sp"
         android:text=""/>
+
+    <View
+        android:id="@+id/cutoffBox"
+        android:layout_width="5dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="196dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/draw_cutoffblock"/>
+
 </RelativeLayout>
