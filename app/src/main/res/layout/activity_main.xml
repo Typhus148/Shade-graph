@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.typhus148.shade_graph.MainActivity">
+    tools:context="com.example.typhus148.shade_graph.MainActivity"
+    android:background="@color/ShadeRed">
 
     <RelativeLayout
         android:id="@+id/surfaceView"
@@ -17,21 +18,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" >
-
-        <TextView
-            android:id="@+id/minExposure"
-            android:background="@color/PureWhite"
-            android:layout_width="26dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="316dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginTop="156dp"
-            android:layout_marginBottom="28dp"
-            android:textAlignment="textEnd"
-            android:fontFamily="SFUIText"
-            android:textSize="8sp"
-            android:text="@string/uv_min"
-            />
 
         <TextView
             android:id="@+id/maxExposure"
@@ -46,6 +32,21 @@
             android:fontFamily="SFUIText"
             android:textSize="8sp"
             android:text=""
+            />
+
+        <TextView
+            android:id="@+id/minExposure"
+            android:background="@color/PureWhite"
+            android:layout_width="26dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="316dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="156dp"
+            android:layout_marginBottom="28dp"
+            android:textAlignment="textEnd"
+            android:fontFamily="SFUIText"
+            android:textSize="8sp"
+            android:text="@string/uv_min"
             />
 
     </RelativeLayout>
