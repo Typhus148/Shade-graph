@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
         graphDate.add("12/25"); graphUv.add(32.0f);
         graphDate.add("12/26"); graphUv.add(74.0f);
         graphDate.add("12/27"); graphUv.add(90.0f);
-        graphDate.add("12/28"); graphUv.add(122.0f);
+        graphDate.add("12/28"); graphUv.add(180.0f);
         graphDate.add("12/29"); graphUv.add(62.0f);
         graphDate.add("12/30"); graphUv.add(44.0f);
         graphDate.add("12/31"); graphUv.add(22.0f);
-        graphDate.add("1/1"); graphUv.add(160.0f);
+        graphDate.add("1/1"); graphUv.add(158.0f);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         Resources r = getResources();
@@ -49,22 +49,22 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout graphView = (RelativeLayout)findViewById(R.id.surfaceView);
 
         int leftMargin = screenWidth/(numberOfBars+1);
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, getResources().getDisplayMetrics());
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 198, r.getDisplayMetrics());
 
         for (int i=0; i< graphDate.size(); i++) {
             float uvValue = graphUv.get(i);
             float barSize = uvValue/graphMaximum;
-            int barHeight = (int)((barSize*px1)+px2);
+            int barHeight = (int)((barSize*px1)+px2); //max barheight is 163px before cutoff
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, barHeight);
 
             if ((i-1)%3==0) {
-                BarTick bar1 = new BarTick(MainActivity.this, (i==numberOfBars-1), graphDate.get(i));
+                BarTick bar1 = new BarTick(MainActivity.this, (i==numberOfBars-1), graphDate.get(i), (graphUv.get(i)>graphMaximum));
                 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                 params.setMarginStart(leftMargin);
                 bar1.setLayoutParams(params);
                 graphView.addView(bar1);
             } else {
-                BarTick bar1 = new BarTick(MainActivity.this, (i == numberOfBars - 1), "");
+                BarTick bar1 = new BarTick(MainActivity.this, (i == numberOfBars - 1), "", (graphUv.get(i)>graphMaximum));
                 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                 params.setMarginStart(leftMargin);
                 bar1.setLayoutParams(params);
