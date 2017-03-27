@@ -55,7 +55,7 @@
     <View
         android:id="@+id/cutoffBox"
         android:layout_width="5dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="196dp"
         android:layout_centerHorizontal="true"
