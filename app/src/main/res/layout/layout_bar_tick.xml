@@ -15,7 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_centerInParent="true"
-        android:background="@drawable/draw_graphtick" />
+        android:background="@color/ShadeGrey" />
 
     <View
         android:id="@+id/graphbar"
