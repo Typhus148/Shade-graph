@@ -8,16 +8,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class BarTick extends RelativeLayout {
-    public BarTick(Context context, boolean isToday, String xLabel) {
+    public BarTick(Context context, boolean isToday, String xLabel, boolean overSized) {
         super(context);
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.layout_bar_tick, this, true);
         ImageView todayMarker = (ImageView)findViewById(R.id.todayMarker);
-
-        // Sets if the dark purple block is visible or not
-        // Will be used for bar values exceeding box when zoomed
         View cutoffBlock = findViewById(R.id.cutoffBox);
-        cutoffBlock.setVisibility(INVISIBLE);
+
+        if (overSized) {
+            cutoffBlock.setVisibility(VISIBLE);
+        } else {
+            cutoffBlock.setVisibility(INVISIBLE);
+        }
 
         if (!isToday) {
             TextView xlabel = (TextView)findViewById(R.id.graphXLabel);
