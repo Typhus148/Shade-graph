@@ -14,11 +14,13 @@ public class BarTick extends RelativeLayout {
         inflater.inflate(R.layout.layout_bar_tick, this, true);
         ImageView todayMarker = (ImageView)findViewById(R.id.todayMarker);
         View cutoffBlock = findViewById(R.id.cutoffBox);
+        View graphBar = findViewById(R.id.graphbar);
+        View oversizedBar = findViewById(R.id.oversizedBar);
 
         if (overSized) {
             cutoffBlock.setVisibility(VISIBLE);
-        } else {
-            cutoffBlock.setVisibility(INVISIBLE);
+            oversizedBar.setVisibility(VISIBLE);
+            graphBar.setVisibility(INVISIBLE);
         }
 
         if (!isToday) {
