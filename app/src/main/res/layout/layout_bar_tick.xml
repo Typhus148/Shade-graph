@@ -18,6 +18,19 @@
         android:background="@color/ShadeGrey" />
 
     <View
+        android:id="@+id/oversizedBar"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:layout_above="@+id/graphTick"
+        android:background="@drawable/draw_oversizedbar" />
+
+    <View
         android:id="@+id/graphbar"
         android:layout_width="5dp"
         android:layout_height="match_parent"
@@ -59,6 +72,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginBottom="196dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/draw_cutoffblock"/>
+        android:visibility="invisible"
+        android:background="@color/LupusDarkPurple"/>
 
 </RelativeLayout>
