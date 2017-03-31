@@ -157,10 +157,10 @@ public class BarChart extends RelativeLayout {
         dailyLimitSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d(getClass().getName(), "New progress is:"+dailyLimitValue);
                 dailyLimitValue = (float)progress / 100.0f * graphMaximum;
                 sliderStartValue = progress;
                 drawDailyLimitLine();
+                Log.d(getClass().getName(), "New progress is:"+dailyLimitValue);
             }
 
             @Override
@@ -170,28 +170,26 @@ public class BarChart extends RelativeLayout {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                Log.d(getClass().getName(), "Final release value:"+seekBar.getProgress());
             }
         });
-
-        int vss = (int) ((dailyLimitValue/graphMaximum));
-        Log.d(getClass().getName(), "START VALUE IS:"+Integer.toString(vss));
-        dailyLimitSlider.setProgress(vss);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         int leftMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 169, r.getDisplayMetrics());
         int rightMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics());
-        //int topMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, r.getDisplayMetrics());
-        int bottomMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, r.getDisplayMetrics());
 
-        params.setMargins(leftMargin, 0, rightMargin, bottomMargin);
+        params.setMargins(leftMargin, 0, rightMargin, 0);
         dailyLimitSlider.setLayoutParams(params);
         dailyLimitSlider.setProgressDrawable(null);
+        dailyLimitSlider.setProgress(sliderStartValue);
+
         if (showSlider) {
             dailyLimitSlider.setVisibility(VISIBLE);
         } else {
             dailyLimitSlider.setVisibility(INVISIBLE);
         }
+
+        Log.d(getClass().getName(), "START VALUE IS:"+(dailyLimitSlider.getProgress()));
         this.addView(dailyLimitSlider);
     }
 

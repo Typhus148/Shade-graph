@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 
@@ -52,10 +51,8 @@ public class DailyLimitSlider extends AppCompatSeekBar {
                 int i=0;
                 i=getMax() - (int) (getMax() * event.getY() / getHeight());
                 setProgress(i);
-                // Log.i("Progress",getProgress()+"");
                 onSizeChanged(getWidth(), getHeight(), 0, 0);
                 break;
-
             case MotionEvent.ACTION_CANCEL:
                 break;
         }
