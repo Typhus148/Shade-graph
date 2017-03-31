@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +24,13 @@ public class BarChart extends RelativeLayout {
     private float dangerZoneLevel;
     private boolean showDailyLimitLine = false;
     private float dailyLimitValue;
+    private boolean showSlider = false;
+    private ImageView sliderButton;
+    private int sliderStartValue;
+    private View dailyLimitLine;
     private Context context;
     private Resources r;
+    private String shadeRed = "#FB6463";
 
     public BarChart(Context context) {
         super(context);
@@ -45,28 +52,52 @@ public class BarChart extends RelativeLayout {
         dailyLimitValue = atExposureLevel;
     }
 
+    // Returns the current daily limit value
+    public float getDailyLimitValue() {
+        return dailyLimitValue;
+    }
+
     private void drawDailyLimitLine() {
+        if (dailyLimitValue>graphMaximum) {
+            dailyLimitValue = graphMaximum;
+        }
         int dlHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, r.getDisplayMetrics()); // height of bar (2dp) converted to pixels
         float dlBottomMargin = ((dailyLimitValue/graphMaximum)*px3);
         int dlTopMargin = (int)(px1-(dlBottomMargin));
 
-        View dailyLimitLine = new View(context);
-        dailyLimitLine.setBackgroundColor(Color.parseColor("#FB6463"));
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, dlHeight);
+        if (dailyLimitLine!=null) {
+            this.removeView(dailyLimitLine);
+            this.removeView(sliderButton);
+        }
+
+        sliderButton = new ImageView(context);
+        sliderButton.setImageResource(R.drawable.limit_knob);
+        LayoutParams buttonParams = new LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, r.getDisplayMetrics()), (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, r.getDisplayMetrics()));
+        int leftMarginB = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 169, r.getDisplayMetrics());
+        int rightMarginB = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics());
+        buttonParams.setMargins(leftMarginB, (dlTopMargin-(int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 9, r.getDisplayMetrics())), rightMarginB, 0);
+        sliderButton.setLayoutParams(buttonParams);
+
+        if (showSlider) {
+            sliderButton.setVisibility(VISIBLE);
+        } else {
+            sliderButton.setVisibility(INVISIBLE);
+        }
+
+        dailyLimitLine = new View(context);
+        dailyLimitLine.setBackgroundColor(Color.parseColor(shadeRed));
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, dlHeight);
         params.setMargins(0, dlTopMargin, 0, params.bottomMargin);
         dailyLimitLine.setLayoutParams(params);
 
         if (showDailyLimitLine) {
-            if (dailyLimitValue >= graphMaximum) {
-                dailyLimitLine.setVisibility(INVISIBLE);
-            } else {
-                dailyLimitLine.setVisibility(VISIBLE);
-            }
+            dailyLimitLine.setVisibility(VISIBLE);
         } else {
             dailyLimitLine.setVisibility(INVISIBLE);
         }
 
         this.addView(dailyLimitLine);
+        this.addView(sliderButton);
     }
 
     // Takes a color to set the bars to
@@ -116,16 +147,65 @@ public class BarChart extends RelativeLayout {
         }
     }
 
-    // Displays the circle button on the daily limit line/bar
-    public void showSliderButton(boolean show) { }
+    public void showSliderButton(boolean show) {
+        showSlider = show;
+    }
 
+    // Displays the circle button on the daily limit line/bar
+    private void drawSliderButton() {
+        DailyLimitSlider dailyLimitSlider = new DailyLimitSlider(context);
+        dailyLimitSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d(getClass().getName(), "New progress is:"+dailyLimitValue);
+                dailyLimitValue = (float)progress / 100.0f * graphMaximum;
+                sliderStartValue = progress;
+                drawDailyLimitLine();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        int vss = (int) ((dailyLimitValue/graphMaximum));
+        Log.d(getClass().getName(), "START VALUE IS:"+Integer.toString(vss));
+        dailyLimitSlider.setProgress(vss);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        int leftMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 169, r.getDisplayMetrics());
+        int rightMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics());
+        //int topMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, r.getDisplayMetrics());
+        int bottomMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, r.getDisplayMetrics());
+
+        params.setMargins(leftMargin, 0, rightMargin, bottomMargin);
+        dailyLimitSlider.setLayoutParams(params);
+        dailyLimitSlider.setProgressDrawable(null);
+        if (showSlider) {
+            dailyLimitSlider.setVisibility(VISIBLE);
+        } else {
+            dailyLimitSlider.setVisibility(INVISIBLE);
+        }
+        this.addView(dailyLimitSlider);
+    }
+
+    // Displays the min and max value textViews for the graph
     private void drawBarChartMinMax() {
         UvMinMax uvMinMax = new UvMinMax(this.context, (int) graphMaximum);
         this.addView(uvMinMax);
     }
 
     // Deletes current displayed graph
-    public void eraseChart() { }
+    public void eraseChart() {
+        RelativeLayout graphLayout = (RelativeLayout)findViewById(R.id.graphView);
+        graphLayout.removeAllViews();
+    }
 
     // Displays the graph
     public void drawChart() {
@@ -133,6 +213,7 @@ public class BarChart extends RelativeLayout {
         drawGraphBars();
         drawDailyLimitLine();
         drawBarChartMinMax();
+        drawSliderButton();
     }
 
     private void drawGraphBars() {
