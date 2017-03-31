@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RelativeLayout surfaceView = (RelativeLayout)findViewById(R.id.surfaceView);
+        RelativeLayout surfaceView = (RelativeLayout)findViewById(R.id.graphView);
         BarChart graphView = new BarChart(this);
         surfaceView.addView(graphView);
 
@@ -32,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
         graphDate.add("12/31"); graphUv.add(22.0f);
         graphDate.add("1/1"); graphUv.add(158.0f);
         graphView.setChartData(graphDate, graphUv);
-        graphView.setGraphMaximum(160.0f);
+        graphView.setGraphMaximum(200.0f);
         graphView.showDangerZone(true, 90.0f);
         graphView.showDailyLimit(true, 43.0f);
+        graphView.showSliderButton(true);
         graphView.drawChart();
     }
 }
