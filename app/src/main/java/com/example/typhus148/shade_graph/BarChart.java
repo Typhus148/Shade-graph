@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -160,18 +159,13 @@ public class BarChart extends RelativeLayout {
                 dailyLimitValue = (float)progress / 100.0f * graphMaximum;
                 sliderStartValue = progress;
                 drawDailyLimitLine();
-                Log.d(getClass().getName(), "New progress is:"+dailyLimitValue);
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.d(getClass().getName(), "Final release value:"+seekBar.getProgress());
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -188,8 +182,6 @@ public class BarChart extends RelativeLayout {
         } else {
             dailyLimitSlider.setVisibility(INVISIBLE);
         }
-
-        Log.d(getClass().getName(), "START VALUE IS:"+(dailyLimitSlider.getProgress()));
         this.addView(dailyLimitSlider);
     }
 
