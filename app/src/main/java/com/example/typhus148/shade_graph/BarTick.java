@@ -18,10 +18,6 @@ public class BarTick extends RelativeLayout {
         View graphBar = findViewById(R.id.graphbar);
         View oversizedBar = findViewById(R.id.oversizedBar);
 
-        // Sets the color of the graph bars
-        GradientDrawable graphBarDrawable = (GradientDrawable) graphBar.getBackground().getCurrent();
-        graphBarDrawable.setColor(barColor);
-
         TextView xlabel = (TextView) findViewById(R.id.graphXLabel);
 
         if (appScreen.equals("History")) {
@@ -38,6 +34,9 @@ public class BarTick extends RelativeLayout {
                 todayMarker.setVisibility(VISIBLE);
             }
         } else {
+            // Sets the color of the graph bars
+            GradientDrawable graphBarDrawable = (GradientDrawable) graphBar.getBackground().getCurrent();
+            graphBarDrawable.setColor(barColor);
             cutoffBlock.setVisibility(INVISIBLE);
             oversizedBar.setVisibility(INVISIBLE);
             todayMarker.setVisibility(INVISIBLE);
