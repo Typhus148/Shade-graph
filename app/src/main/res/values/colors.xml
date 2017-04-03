@@ -10,4 +10,5 @@
     <color name="ShadeText">#4A4A4A</color>
     <color name="ShadeRed">#FB6463</color>
     <color name="ShadeGreyWhite">#EFECEC</color>
+    <color name="ShadeDarkPurple">#48168C</color>
 </resources>
