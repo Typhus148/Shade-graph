@@ -263,7 +263,7 @@ public class BarChart extends RelativeLayout {
                 barHeight = (int)((barSize*dx1)+dx2);
             }
 
-            if(barHeight <= minH) {
+            if((barHeight <= minH)&&(!(barHeight < 0))) {
                 barHeight = (int) minH;
             }
 
@@ -300,11 +300,17 @@ public class BarChart extends RelativeLayout {
             float barSize = uvValue/graphMaximum;
             int barHeight;
             boolean overSized = (uvValue>=graphMaximum);
+
             if (overSized) {
                 barHeight = (int)((barSize*px1)+px2);
             } else {
                 barHeight = (int)((barSize*px3)+px2);
             }
+
+            if((barHeight <= minH)&&(!(barHeight < 0))) {
+                barHeight = (int) minH;
+            }
+
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, barHeight);
             if ((i-1)%3==0) {
                 BarTick bar1 = new BarTick(this.context, (i==numberOfBars-1), graphDate.get(i), overSized, graphBarColor, appScreen);
