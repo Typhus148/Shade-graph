@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.typhus148.shade_graph.MainActivity"
-    android:background="@color/ShadeRed">
+    android:background="@color/colorPrimaryDark">
 
     <RelativeLayout
-        android:id="@+id/surfaceView"
+        android:id="@+id/graphView"
         android:background="@color/PureWhite"
         android:orientation="vertical"
         android:layout_width="match_parent"
