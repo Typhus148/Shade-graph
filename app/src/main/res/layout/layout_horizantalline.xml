@@ -19,6 +19,7 @@
         />
 
     <View
+        android:id="@+id/topGraphBar"
         android:layout_width="360dp"
         android:layout_height="1dp"
         android:layout_marginBottom="194dp"
