@@ -19,7 +19,7 @@ public class BarChart extends RelativeLayout {
     private List<Float> graphUv = new ArrayList<>();
 
     private float graphMaximum;
-    private float px1, px2, px3, dx1, dx2;
+    private float px1, px2, px3, dx1, dx2, dx3, minH;
     private boolean showDangerZone = false;
     private float dangerZoneLevel;
     private boolean showDailyLimitLine = false;
@@ -38,12 +38,15 @@ public class BarChart extends RelativeLayout {
         super(context);
         this.context = context;
         r = context.getResources();
+        minH = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, r.getDisplayMetrics()); // Measurement for minimum height a bar can be
+
         px1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics()); // if uv value is greater than max uv use this on the history app screen
         px2 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, r.getDisplayMetrics()); // accounts for rest of space not including the graph bar on the history app screen
         px3 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 163, r.getDisplayMetrics()); // if uv value is not greater than max uv use this on the history app screen
 
         dx1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 126, r.getDisplayMetrics()); // Display size for uv bar in dashboard app screen
         dx2 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, r.getDisplayMetrics()); // accounts for the rest of space not including the graph bar on the dashboard app screen
+        dx3 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 131, r.getDisplayMetrics());
 
         shadeRed = ContextCompat.getColor(context, R.color.ShadeRed);
         graphBarColor = ContextCompat.getColor(context, R.color.LupusPurple);
@@ -250,16 +253,19 @@ public class BarChart extends RelativeLayout {
         for (int i=0; i<graphDate.size(); i++) {
             float uvValue = graphUv.get(i);
             boolean overSized = (uvValue>=graphMaximum);
-            float barSize;
+            float barSize = uvValue/graphMaximum;
+            int barHeight;
 
             // Prevents values greater than maximum from displaying outside the space provided
             if (!overSized) {
-                barSize = uvValue/graphMaximum;
+                barHeight = (int)((barSize*dx1)+dx2);
             } else {
-                barSize = 1.0f;
+                barHeight = (int)((barSize*dx1)+dx2);
             }
 
-            int barHeight = (int)((barSize*dx1)+dx2);
+            if(barHeight <= minH) {
+                barHeight = (int) minH;
+            }
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, barHeight);
             if (i==0 || i==4 || i==8 || i==12) {
@@ -293,13 +299,11 @@ public class BarChart extends RelativeLayout {
             float uvValue = graphUv.get(i);
             float barSize = uvValue/graphMaximum;
             int barHeight;
-            boolean overSized;
-            if (uvValue>=graphMaximum) {
+            boolean overSized = (uvValue>=graphMaximum);
+            if (overSized) {
                 barHeight = (int)((barSize*px1)+px2);
-                overSized =  true;
             } else {
                 barHeight = (int)((barSize*px3)+px2);
-                overSized = false;
             }
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, barHeight);
             if ((i-1)%3==0) {

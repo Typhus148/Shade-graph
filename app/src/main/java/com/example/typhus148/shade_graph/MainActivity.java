@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         graphDate.add("12/30"); graphUv.add(50.0f);
         graphDate.add("12/31"); graphUv.add(22.0f);
         graphDate.add("1/1"); graphUv.add(158.0f);
-        graphDate.add("7 PM"); graphUv.add(198.0f);
+        graphDate.add("7 PM"); graphUv.add(210.0f);
 
         // passes in the current app screen
         graphView.setAppScreen(appScreen);

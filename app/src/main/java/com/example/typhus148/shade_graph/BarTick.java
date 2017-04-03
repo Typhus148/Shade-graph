@@ -34,13 +34,22 @@ public class BarTick extends RelativeLayout {
                 todayMarker.setVisibility(VISIBLE);
             }
         } else {
-            // Sets the color of the graph bars
-            GradientDrawable graphBarDrawable = (GradientDrawable) graphBar.getBackground().getCurrent();
-            graphBarDrawable.setColor(barColor);
-            cutoffBlock.setVisibility(INVISIBLE);
-            oversizedBar.setVisibility(INVISIBLE);
             todayMarker.setVisibility(INVISIBLE);
             xlabel.setText(xLabel);
+
+            if (overSized) {
+                // Sets the color of the oversized graph bar
+                GradientDrawable graphBarDrawable = (GradientDrawable) oversizedBar.getBackground().getCurrent();
+                graphBarDrawable.setColor(barColor);
+
+                oversizedBar.setVisibility(VISIBLE);
+                graphBar.setVisibility(INVISIBLE);
+                cutoffBlock.setVisibility(VISIBLE);
+            } else {
+                // Sets the color of the graph bar
+                GradientDrawable graphBarDrawable = (GradientDrawable) graphBar.getBackground().getCurrent();
+                graphBarDrawable.setColor(barColor);
+            }
         }
     }
 }
