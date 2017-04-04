@@ -19,7 +19,7 @@ public class BarChart extends RelativeLayout {
     private List<Float> graphUv = new ArrayList<>();
 
     private float graphMaximum;
-    private float px1, px2, px3, dx1, dx2, dx3, minH;
+    private float px1, px2, px3, dx1, dx2, minH;
     private boolean showDangerZone = false;
     private float dangerZoneLevel;
     private boolean showDailyLimitLine = false;
@@ -28,6 +28,7 @@ public class BarChart extends RelativeLayout {
     private ImageView sliderButton;
     private int sliderStartValue;
     private View dailyLimitLine;
+    private UvMinMax uvMinMax;
     private Context context;
     private Resources r;
     private int shadeRed;
@@ -46,7 +47,6 @@ public class BarChart extends RelativeLayout {
 
         dx1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 126, r.getDisplayMetrics()); // Display size for uv bar in dashboard app screen
         dx2 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, r.getDisplayMetrics()); // accounts for the rest of space not including the graph bar on the dashboard app screen
-        dx3 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 131, r.getDisplayMetrics());
 
         shadeRed = ContextCompat.getColor(context, R.color.ShadeRed);
         graphBarColor = ContextCompat.getColor(context, R.color.LupusPurple);
@@ -179,6 +179,7 @@ public class BarChart extends RelativeLayout {
                 dailyLimitValue = (float)progress / 100.0f * graphMaximum;
                 sliderStartValue = progress;
                 drawDailyLimitLine();
+                bringToTopLayer();
             }
 
             @Override
@@ -207,8 +208,12 @@ public class BarChart extends RelativeLayout {
 
     // Displays the min and max value textViews for the graph
     private void drawBarChartMinMax() {
-        UvMinMax uvMinMax = new UvMinMax(this.context, (int) graphMaximum, appScreen);
+        uvMinMax = new UvMinMax(this.context, (int) graphMaximum, appScreen);
         this.addView(uvMinMax);
+    }
+
+    private void bringToTopLayer() {
+        uvMinMax.bringToFront();
     }
 
     // Deletes current displayed graph
