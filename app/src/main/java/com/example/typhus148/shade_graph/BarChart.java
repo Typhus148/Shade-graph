@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -268,7 +269,7 @@ public class BarChart extends RelativeLayout {
                 barHeight = (int)((barSize*dx1)+dx2);
             }
 
-            if((barHeight <= minH)&&(!(barHeight < 0))) {
+            if((barHeight <= minH)&&(!(barHeight > dx2))) {
                 barHeight = (int) minH;
             }
 
@@ -312,7 +313,7 @@ public class BarChart extends RelativeLayout {
                 barHeight = (int)((barSize*px3)+px2);
             }
 
-            if((barHeight <= minH)&&(!(barHeight < 0))) {
+            if((barHeight <= minH)&&((barHeight > px2))) {
                 barHeight = (int) minH;
             }
 
